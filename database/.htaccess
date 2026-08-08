@@ -1,0 +1,5 @@
+# Defense in depth: this folder lives OUTSIDE the webroot in the recommended
+# deployment layout and is not reachable at all. This file only matters if a
+# host forces everything into a single public_html root (see README "Fallback
+# layout") and app/ ends up web-accessible by mistake.
+Require all denied

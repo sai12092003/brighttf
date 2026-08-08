@@ -1,0 +1,46 @@
+# Bright Today Foundation — public webroot .htaccess
+
+# ---- Directory listing / dotfiles ----
+Options -Indexes -MultiViews
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Never serve source/data files even if they end up in this folder by mistake.
+<FilesMatch "\.(sql|log|md|env|ini|bak|sh)$">
+    Require all denied
+</FilesMatch>
+
+# ---- Security headers ----
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    # Uncomment once SSL is live (Section 8 of the deployment guide):
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# ---- Force HTTPS (uncomment after AutoSSL/Let's Encrypt is issued) ----
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ---- Front controller routing ----
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Let real files and directories (assets, uploads, admin/*.php) resolve normally.
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Everything else goes through the front controller (public pages / routes.php).
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# ---- PHP hardening ----
+<IfModule mod_php.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+</IfModule>

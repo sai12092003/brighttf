@@ -1,0 +1,23 @@
+.env
+/node_modules
+/tailwind-src/node_modules
+/storage/logs/*.log
+/public_html/uploads/*
+!/public_html/uploads/blog
+!/public_html/uploads/gallery
+!/public_html/uploads/team
+!/public_html/uploads/legal
+!/public_html/uploads/settings
+!/public_html/uploads/*/.gitkeep
+.DS_Store
+Thumbs.db
+
+# Original raw source documents supplied for content extraction (PDFs/photos).
+# The processed/optimized versions already live under public_html/ (logos,
+# favicons, OG image, 12A/80G PDFs) — these root-level originals don't need
+# to ship in the app repo.
+/*.pdf
+/*.png
+/*.jpeg
+/*.jpg
+/router-debug.log
