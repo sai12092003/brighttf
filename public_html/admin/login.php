@@ -2,7 +2,11 @@
 
 declare(strict_types=1);
 
-require dirname(__DIR__, 2) . '/app/bootstrap.php';
+$bootstrap = dirname(__DIR__) . '/app/bootstrap.php';
+if (!is_file($bootstrap)) {
+    $bootstrap = dirname(__DIR__, 2) . '/app/bootstrap.php';
+}
+require $bootstrap;
 
 use App\Core\Auth;
 use App\Core\Csrf;

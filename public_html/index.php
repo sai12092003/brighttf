@@ -2,7 +2,12 @@
 
 declare(strict_types=1);
 
-require dirname(__DIR__) . '/app/bootstrap.php';
+// app/ is either inside public_html (fallback layout) or beside it (preferred layout).
+$bootstrap = __DIR__ . '/app/bootstrap.php';
+if (!is_file($bootstrap)) {
+    $bootstrap = dirname(__DIR__) . '/app/bootstrap.php';
+}
+require $bootstrap;
 
 use App\Core\Router;
 

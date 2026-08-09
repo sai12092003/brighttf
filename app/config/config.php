@@ -4,7 +4,19 @@ declare(strict_types=1);
 
 use App\Core\Env;
 
-Env::load(dirname(__DIR__, 2) . '/.env');
+// app/, database/, and storage/ always sit beside each other. Their shared parent is either
+// the project root (preferred layout: app/ is a sibling of public_html/) or public_html/
+// itself (fallback layout: app/ was uploaded inside public_html/ because the host doesn't
+// allow files above the webroot). Detecting this here means the same codebase deploys
+// correctly under either layout with no manual switch.
+$sharedParent = dirname(__DIR__, 2);
+$isFallbackLayout = basename($sharedParent) === 'public_html';
+$publicPath = $isFallbackLayout ? $sharedParent : $sharedParent . '/public_html';
+// .env lives beside app/database/storage in both layouts — inside public_html in the
+// fallback case (never above it, since some hosts explicitly disallow uploading there).
+$rootPath = $sharedParent;
+
+Env::load($rootPath . '/.env');
 
 return [
     'app' => [
@@ -30,10 +42,10 @@ return [
         'smtp_pass' => Env::get('SMTP_PASS', ''),
     ],
     'paths' => [
-        'root' => dirname(__DIR__, 2),
+        'root' => $rootPath,
         'app' => dirname(__DIR__),
-        'public' => dirname(__DIR__, 2) . '/public_html',
-        'storage' => dirname(__DIR__, 2) . '/storage',
-        'uploads' => dirname(__DIR__, 2) . '/public_html/uploads',
+        'public' => $publicPath,
+        'storage' => $sharedParent . '/storage',
+        'uploads' => $publicPath . '/uploads',
     ],
 ];
