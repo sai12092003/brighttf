@@ -12,11 +12,17 @@ final class GalleryImage
     {
         if ($albumId !== null) {
             return Database::fetchAll(
-                'SELECT * FROM gallery_images WHERE is_active = 1 AND album_id = ? ORDER BY sort_order ASC',
+                'SELECT gi.*, ga.title AS album_title FROM gallery_images gi
+                 LEFT JOIN gallery_albums ga ON ga.id = gi.album_id
+                 WHERE gi.is_active = 1 AND gi.album_id = ? ORDER BY gi.sort_order ASC',
                 [$albumId]
             );
         }
-        return Database::fetchAll('SELECT * FROM gallery_images WHERE is_active = 1 ORDER BY sort_order ASC');
+        return Database::fetchAll(
+            'SELECT gi.*, ga.title AS album_title FROM gallery_images gi
+             LEFT JOIN gallery_albums ga ON ga.id = gi.album_id
+             WHERE gi.is_active = 1 ORDER BY gi.sort_order ASC'
+        );
     }
 
     public static function all(): array

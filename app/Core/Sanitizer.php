@@ -23,6 +23,17 @@ final class Sanitizer
         return filter_var($value, FILTER_VALIDATE_EMAIL) !== false;
     }
 
+    /**
+     * True for a 10-digit Indian mobile number, ignoring spaces/dashes and
+     * an optional leading 0 or +91/91 country code (e.g. "+91 98765 43210").
+     */
+    public static function isValidPhone(string $value): bool
+    {
+        $digits = preg_replace('/\D+/', '', $value) ?? '';
+        $digits = preg_replace('/^(?:91)?0*(?=\d{10}$)/', '', $digits) ?? $digits;
+        return preg_match('/^[6-9]\d{9}$/', $digits) === 1;
+    }
+
     public static function slug(string $value): string
     {
         $value = strtolower(trim($value));

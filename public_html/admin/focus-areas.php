@@ -7,6 +7,7 @@ require __DIR__ . '/_bootstrap.php';
 use App\Core\Auth;
 use App\Core\AdminHelpers;
 use App\Core\Sanitizer;
+use App\Core\Uploader;
 use App\Core\View;
 use App\Models\FocusArea;
 use App\Models\ActivityLog;
@@ -38,6 +39,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($data['title'] === '') {
         flash_error('Title is required.');
         redirect('/admin/focus-areas.php?action=' . ($id ? "edit&id={$id}" : 'create'));
+    }
+
+    $uploadError = null;
+    $iconPath = Uploader::storeImage($_FILES['icon'] ?? [], 'focus-areas', $uploadError);
+    if ($uploadError) {
+        flash_error($uploadError);
+        redirect('/admin/focus-areas.php?action=' . ($id ? "edit&id={$id}" : 'create'));
+    }
+    if ($iconPath) {
+        $data['icon_path'] = $iconPath;
     }
 
     if ($id) {

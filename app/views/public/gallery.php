@@ -17,17 +17,19 @@
                 <p>Photos from our programs will appear here soon.</p>
             </div>
         <?php else: ?>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-                <?php foreach ($images as $img): ?>
-                    <button type="button" data-lightbox-src="<?= upload_url($img['image_path']) ?>" class="group relative aspect-square overflow-hidden rounded-2xl reveal">
+            <?php $galleryColors = ['bg-brand-orange-500', 'bg-brand-green-500', 'bg-brand-blue-700']; ?>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <?php foreach ($images as $i => $img): ?>
+                    <button type="button" data-lightbox-src="<?= upload_url($img['image_path']) ?>" class="group relative aspect-[16/10] overflow-hidden rounded-2xl reveal">
                         <img src="<?= upload_url($img['image_path']) ?>" alt="<?= e($img['alt_text'] ?? '') ?>" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <?php if (!empty($img['album_title'])): ?>
+                            <span class="absolute inset-x-0 bottom-0 <?= $galleryColors[$i % 3] ?> px-3 py-1.5 text-center text-xs font-semibold text-white truncate">
+                                <?= e($img['album_title']) ?>
+                            </span>
+                        <?php endif; ?>
                     </button>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
     </div>
 </section>
-
-<div id="lightbox" class="hidden fixed inset-0 z-[60] bg-black/90 flex items-center justify-center p-6 cursor-zoom-out">
-    <img id="lightbox-img" src="" alt="" class="max-h-[85vh] max-w-full rounded-lg shadow-2xl">
-</div>

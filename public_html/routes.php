@@ -26,7 +26,7 @@ $router->get('/', function () {
         'blocks' => ContentBlock::forPage('home'),
         'focusAreas' => FocusArea::allActive(),
         'stats' => StatsCounter::allActive(),
-        'testimonials' => Testimonial::featured(3),
+        'testimonials' => Testimonial::allActive(),
         'posts' => BlogPost::published(3),
     ], 'home');
 });
@@ -97,7 +97,11 @@ $router->post('/get-involved', function () {
     $errors = [];
     if ($name === '') $errors['name'] = 'Name is required.';
     if (!Sanitizer::isValidEmail($email)) $errors['email'] = 'A valid email is required.';
-    if ($phone === '') $errors['phone'] = 'Phone number is required.';
+    if ($phone === '') {
+        $errors['phone'] = 'Phone number is required.';
+    } elseif (!Sanitizer::isValidPhone($phone)) {
+        $errors['phone'] = 'Enter a valid 10-digit mobile number.';
+    }
     if ($type === 'partner' && $org === '') $errors['organization_name'] = 'Organization name is required.';
 
     if ($errors) {
@@ -147,7 +151,11 @@ $router->post('/donate', function () {
 
     $errors = [];
     if ($name === '') $errors['donor_name'] = 'Name is required.';
-    if ($phone === '') $errors['phone'] = 'Phone number is required.';
+    if ($phone === '') {
+        $errors['phone'] = 'Phone number is required.';
+    } elseif (!Sanitizer::isValidPhone($phone)) {
+        $errors['phone'] = 'Enter a valid 10-digit mobile number.';
+    }
     if ($amount <= 0) $errors['amount'] = 'Please enter a valid donation amount.';
 
     if ($errors) {
@@ -238,6 +246,7 @@ $router->post('/contact', function () {
     $errors = [];
     if ($name === '') $errors['name'] = 'Name is required.';
     if (!Sanitizer::isValidEmail($email)) $errors['email'] = 'A valid email is required.';
+    if ($phone !== '' && !Sanitizer::isValidPhone($phone)) $errors['phone'] = 'Enter a valid 10-digit mobile number.';
     if ($message === '') $errors['message'] = 'Please enter a message.';
 
     if ($errors) {

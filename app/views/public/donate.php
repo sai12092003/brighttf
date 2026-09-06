@@ -82,7 +82,7 @@ $hasBankDetails = !empty($settings['donation_bank_account_number']) || !empty($s
                     <div class="grid sm:grid-cols-2 gap-4">
                         <div>
                             <label class="form-label">Phone</label>
-                            <input type="tel" name="phone" required class="form-input" value="<?= e(old('phone')) ?>">
+                            <input type="tel" name="phone" required inputmode="numeric" pattern="[6-9][0-9]{9}" maxlength="10" title="Enter a valid 10-digit mobile number" placeholder="10-digit mobile number" class="form-input" value="<?= e(old('phone')) ?>">
                             <?php if (errors('phone')): ?><p class="form-error"><?= e(errors('phone')) ?></p><?php endif; ?>
                         </div>
                         <div>

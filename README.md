@@ -35,8 +35,12 @@ Requires PHP 8.1+, and either PostgreSQL (recommended for local dev) or MySQL.
    ```
 4. Start the dev server from the project root:
    ```
-   php -S 127.0.0.1:8000 router.php
+   php -S 127.0.0.1:8000 -t public_html router.php
    ```
+   The `-t public_html` is required so PHP's built-in server serves static
+   assets and other PHP files (e.g. `/admin/login.php`) from `public_html`
+   when `router.php` returns `false` — without it, the server falls back to
+   the project root and every non-`/` request 404s.
 5. Visit `http://localhost:8000/` and `http://localhost:8000/admin/login.php`.
 
 **Default admin login** (seeded by `seed.sql`/`seed.pgsql.sql`): username `admin`, password

@@ -6,8 +6,15 @@ $isEdit = $area !== null;
 <a href="<?= base_url('/admin/focus-areas.php') ?>" class="text-sm text-brand-neutral-500 hover:text-brand-blue-700">&larr; Back to Focus Areas</a>
 
 <div class="card p-8 mt-4 max-w-2xl">
-    <form method="POST" action="<?= base_url('/admin/focus-areas.php' . ($isEdit ? '?id=' . $area['id'] : '')) ?>" class="space-y-5">
+    <form method="POST" action="<?= base_url('/admin/focus-areas.php' . ($isEdit ? '?id=' . $area['id'] : '')) ?>" class="space-y-5" enctype="multipart/form-data">
         <?= Csrf::field() ?>
+        <?php if ($isEdit && !empty($area['icon_path'])): ?>
+            <img src="<?= upload_url($area['icon_path']) ?>" class="h-20 w-20 rounded-xl object-cover">
+        <?php endif; ?>
+        <div>
+            <label class="form-label">Image (optional)</label>
+            <input type="file" name="icon" accept="image/*" class="form-input">
+        </div>
         <div>
             <label class="form-label">Title</label>
             <input type="text" name="title" required class="form-input" value="<?= e($area['title'] ?? '') ?>">

@@ -67,7 +67,8 @@ $error = flash_error();
                     <div class="grid sm:grid-cols-2 gap-4">
                         <div>
                             <label class="form-label">Phone (optional)</label>
-                            <input type="tel" name="phone" class="form-input" value="<?= e(old('phone')) ?>">
+                            <input type="tel" name="phone" inputmode="numeric" pattern="[6-9][0-9]{9}" maxlength="10" title="Enter a valid 10-digit mobile number" placeholder="10-digit mobile number" class="form-input" value="<?= e(old('phone')) ?>">
+                            <?php if (errors('phone')): ?><p class="form-error"><?= e(errors('phone')) ?></p><?php endif; ?>
                         </div>
                         <div>
                             <label class="form-label">Subject</label>

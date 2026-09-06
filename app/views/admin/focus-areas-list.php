@@ -10,6 +10,7 @@ use App\Core\Csrf;
     <table class="w-full text-sm">
         <thead class="bg-brand-neutral-50 text-left text-xs uppercase tracking-wide text-brand-neutral-500">
             <tr>
+                <th class="px-5 py-3">Image</th>
                 <th class="px-5 py-3">Order</th>
                 <th class="px-5 py-3">Title</th>
                 <th class="px-5 py-3">Slug</th>
@@ -20,6 +21,13 @@ use App\Core\Csrf;
         <tbody class="divide-y divide-brand-neutral-100">
             <?php foreach ($areas as $area): ?>
                 <tr>
+                    <td class="px-5 py-3">
+                        <?php if (!empty($area['icon_path'])): ?>
+                            <img src="<?= upload_url($area['icon_path']) ?>" class="h-10 w-10 rounded-lg object-cover">
+                        <?php else: ?>
+                            <span class="text-brand-neutral-300">&mdash;</span>
+                        <?php endif; ?>
+                    </td>
                     <td class="px-5 py-3"><?= (int) $area['sort_order'] ?></td>
                     <td class="px-5 py-3 font-medium text-brand-blue-900"><?= e($area['title']) ?></td>
                     <td class="px-5 py-3 text-brand-neutral-500"><?= e($area['slug']) ?></td>
@@ -42,7 +50,7 @@ use App\Core\Csrf;
                 </tr>
             <?php endforeach; ?>
             <?php if (empty($areas)): ?>
-                <tr><td colspan="5" class="px-5 py-8 text-center text-brand-neutral-500">No focus areas yet.</td></tr>
+                <tr><td colspan="6" class="px-5 py-8 text-center text-brand-neutral-500">No focus areas yet.</td></tr>
             <?php endif; ?>
         </tbody>
     </table>

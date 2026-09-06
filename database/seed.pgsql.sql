@@ -81,12 +81,12 @@ INSERT INTO focus_areas (title, slug, goal_text, action_text, long_description, 
 -- ---------------------------------------------------------------------
 INSERT INTO team_members (name, role_title, bio, quote, sort_order, is_active) VALUES
 ('Jothilakshmi', 'Founder',
- 'Before launching Bright Today Foundation, Jothilakshmi spent years in the grassroots social work sector, managing community welfare projects and witnessing firsthand how top-down development often fails when it doesn''t involve or empower the local community directly. Throughout this journey she was repeatedly confronted by a painful reality: the alarming rise in mental health struggles among school children and the severe lack of emotional and psychological support within traditional educational frameworks. A specific moment changed everything — she met a brilliant young girl who had to drop out of school at age twelve because her family could not afford basic school supplies and uniforms, forcing her to work instead of learning. Refusing to remain a bystander, Jothilakshmi brought together a small group of passionate advocates, volunteers, and experts to build a structured ecosystem of support. What began as a local grassroots initiative has rapidly scaled into Bright Today Foundation — a registered organization driven entirely by accountability, transparency, and deep community impact.',
- 'Our work is far from finished. We are not just building temporary fixes; we are investing heavily in generational growth. Every program we run, every scholarship we fund, and every community we uplift is a step toward a much brighter, self-sufficient tomorrow.',
+ 'Before starting Bright Today Foundation, Jothilakshmi spent years in grassroots social work and saw how programs often fail when they are not built with the community they serve. What changed everything was meeting a bright young girl who had to leave school at twelve because her family could not afford supplies and uniforms. That moment pushed her to gather a small group of volunteers and experts and build the support system that has since grown into Bright Today Foundation.',
+ 'Our work is far from finished. We are not building quick fixes. We are investing in real, lasting growth, one child, one family, and one community at a time.',
  1, 1),
 ('Yasotha', 'Co-Founder',
- 'With a strong background in organizational management and administration, Yasotha joined forces with Jothilakshmi to turn a passionate idea into a structured, impactful reality. Where others saw insurmountable social challenges, Yasotha saw an opportunity to build sustainable, scalable systems that create lasting change. At the foundation, she oversees strategic partnerships, corporate collaborations, and long-term growth planning. Her unique ability to mentor team members, inspire volunteer networks, and guide youth programs ensures that the foundation''s resources directly reach the individuals who need them most, with total transparency and efficiency.',
- 'Partnering with Jothilakshmi to build Bright Today Foundation was an easy decision. We share a fundamental belief that real empowerment requires practical, long-term frameworks. Every day, we work to ensure that our programs don''t just offer temporary relief, but build a permanent foundation for a brighter tomorrow.',
+ 'Yasotha brings a strong background in organizational management to Bright Today Foundation. She leads our partnerships, guides our volunteer network, and keeps our programs accountable, so every rupee and every hour reaches the people who need it most.',
+ 'Building this foundation with Jothilakshmi was an easy decision. We both believe real change takes practical, patient work, and every day we try to build something that lasts.',
  2, 1);
 
 -- ---------------------------------------------------------------------
@@ -113,7 +113,7 @@ INSERT INTO faqs (question, answer, sort_order, is_active) VALUES
 INSERT INTO content_blocks (page_key, block_key, block_type, label, content_text, sort_order) VALUES
 -- Home
 ('home', 'hero_title', 'text', 'Hero Title', 'Every Child Deserves a Brighter Today', 1),
-('home', 'hero_subtitle', 'text', 'Hero Subtitle', 'Bright Today Foundation empowers underprivileged communities across India through education, environmental action, and women & child welfare — building generational change, not temporary fixes.', 2),
+('home', 'hero_subtitle', 'text', 'Hero Subtitle', 'We walk alongside communities across India, nurturing education, protecting our environment, and standing beside women and children so every family can build a future full of hope. This is not charity that fades. It is change that lasts.', 2),
 ('home', 'hero_cta_text', 'text', 'Hero CTA Button Text', 'Donate Now', 3),
 ('home', 'hero_cta_link', 'url', 'Hero CTA Button Link', '/donate', 4),
 ('home', 'hero_secondary_cta_text', 'text', 'Hero Secondary Button Text', 'Get Involved', 5),

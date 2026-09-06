@@ -116,4 +116,29 @@
   html.js .reveal.is-visible {
     @apply animate-fade-up;
   }
+  html.js .reveal-left,
+  html.js .reveal-right {
+    opacity: 0;
+  }
+  html.js .reveal-left.is-visible {
+    animation: fadeLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  html.js .reveal-right.is-visible {
+    animation: fadeRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+@keyframes fadeLeft {
+  0% { opacity: 0; transform: translateX(-32px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeRight {
+  0% { opacity: 0; transform: translateX(32px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }

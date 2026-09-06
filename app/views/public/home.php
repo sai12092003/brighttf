@@ -6,30 +6,34 @@
 /** @var array $posts */
 ?>
 
-<section class="relative overflow-hidden bg-brand-gradient text-white">
-    <div class="absolute inset-0 opacity-[0.07] bg-[radial-gradient(circle_at_20%_20%,white,transparent_35%),radial-gradient(circle_at_80%_60%,white,transparent_30%)]"></div>
-    <div class="container-custom relative py-24 sm:py-28 lg:py-36 grid lg:grid-cols-12 gap-12 items-center">
-        <div class="lg:col-span-7 reveal">
-            <span class="badge-trust !bg-white/10 !text-white !border-white/20">12A &amp; 80G Registered Trust</span>
-            <h1 class="mt-6 font-display text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.1]">
-                <?= e($blocks['hero_title'] ?? '') ?>
-            </h1>
-            <p class="mt-6 max-w-xl text-lg text-brand-blue-100 leading-relaxed">
+<section class="relative overflow-hidden bg-brand-neutral-50">
+    <div class="absolute inset-y-0 left-0 w-16 sm:w-24 lg:w-40 pointer-events-none"
+        style="background-image: url('<?= asset('img/hero-support.jpg') ?>'); background-size: cover; background-position: left center; filter: blur(1px); opacity: 0.3; -webkit-mask-image: linear-gradient(to right, black 15%, transparent 88%); mask-image: linear-gradient(to right, black 15%, transparent 88%);"></div>
+    <div class="absolute inset-y-0 right-0 w-16 sm:w-24 lg:w-40 pointer-events-none"
+        style="background-image: url('<?= asset('img/hero-support.jpg') ?>'); background-size: cover; background-position: right center; filter: blur(1px); opacity: 0.3; -webkit-mask-image: linear-gradient(to left, black 15%, transparent 88%); mask-image: linear-gradient(to left, black 15%, transparent 88%);"></div>
+    <div class="container-custom relative py-20 sm:py-24 lg:py-28">
+        <h1 class="text-center font-display font-black leading-[0.85] tracking-tight bg-clip-text text-transparent bg-cover reveal"
+            style="font-size: clamp(2.75rem, 11vw, 9rem); background-image: url('<?= asset('img/hero-support.jpg') ?>'); background-position: center 35%;">
+            <span class="block">Bright Today</span>
+            <span class="block">Foundation</span>
+        </h1>
+        <div class="mt-10 max-w-xl mx-auto text-center reveal">
+            <p class="text-lg text-brand-neutral-600 leading-relaxed">
                 <?= e($blocks['hero_subtitle'] ?? '') ?>
             </p>
-            <div class="mt-9 flex flex-wrap gap-4">
+            <div class="mt-9 flex flex-wrap justify-center gap-4">
                 <a href="<?= base_url($blocks['hero_cta_link'] ?? '/donate') ?>" class="btn-primary">
                     <?= e($blocks['hero_cta_text'] ?? 'Donate Now') ?>
                 </a>
-                <a href="<?= base_url($blocks['hero_secondary_cta_link'] ?? '/get-involved') ?>" class="btn-ghost-light">
+                <a href="<?= base_url($blocks['hero_secondary_cta_link'] ?? '/get-involved') ?>" class="btn-secondary">
                     <?= e($blocks['hero_secondary_cta_text'] ?? 'Get Involved') ?>
                 </a>
             </div>
-        </div>
-        <div class="lg:col-span-5 flex justify-center reveal">
-            <div class="relative">
-                <div class="absolute -inset-8 rounded-full bg-white/5 blur-2xl"></div>
-                <img src="<?= asset('img/logo-color-512.png') ?>" alt="Bright Today Foundation" class="relative w-56 sm:w-72 lg:w-80 drop-shadow-2xl">
+            <div class="mt-6 flex justify-center reveal">
+                <span class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-brand-neutral-500">
+                    <svg class="h-4 w-4 text-brand-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    12A &amp; 80G Registered Trust
+                </span>
             </div>
         </div>
     </div>
@@ -54,82 +58,66 @@
             <p class="eyebrow">Our Story</p>
             <h2 class="section-title"><?= e($blocks['intro_heading'] ?? '') ?></h2>
             <p class="section-lede"><?= e($blocks['intro_text'] ?? '') ?></p>
-            <a href="<?= base_url('/about') ?>" class="btn-secondary mt-8">Read Our Full Story</a>
+            <a href="<?= base_url('/about') ?>" class="group inline-flex items-center gap-2 mt-8 rounded-full border border-brand-blue-200 bg-white px-6 py-3 text-sm sm:text-base font-semibold text-brand-blue-800 transition-colors duration-300 hover:border-transparent hover:bg-brand-orange-500 hover:text-white">
+                Read Our Full Story
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </a>
         </div>
-        <div class="lg:col-span-7 grid grid-cols-2 gap-5 reveal">
-            <div class="card p-8 flex flex-col items-start gap-3">
-                <span class="h-11 w-11 rounded-2xl bg-brand-orange-50 flex items-center justify-center text-brand-orange-600 font-display text-xl">01</span>
-                <p class="font-semibold text-brand-blue-900">Founded 2025</p>
-                <p class="text-sm text-brand-neutral-600">A registered trust built on transparency and accountability.</p>
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-5 reveal">
+            <div class="rounded-md bg-brand-green-500 p-7 min-h-[240px] flex flex-col items-start gap-3 shadow-soft hover:shadow-soft-lg transition-shadow">
+                <span class="h-11 w-11 rounded-md bg-white/15 flex items-center justify-center text-white font-display text-xl">1</span>
+                <p class="mt-1 font-semibold text-white">Community-Led</p>
+                <p class="text-sm text-white/85">Programs shaped with, not just for, the communities we serve.</p>
             </div>
-            <div class="card p-8 flex flex-col items-start gap-3 sm:mt-8">
-                <span class="h-11 w-11 rounded-2xl bg-brand-green-50 flex items-center justify-center text-brand-green-600 font-display text-xl">02</span>
-                <p class="font-semibold text-brand-blue-900">Community-Led</p>
-                <p class="text-sm text-brand-neutral-600">Programs shaped with, not just for, the communities we serve.</p>
+            <div class="rounded-md bg-brand-blue-700 p-7 min-h-[240px] flex flex-col items-start gap-3 shadow-soft hover:shadow-soft-lg transition-shadow">
+                <span class="h-11 w-11 rounded-md bg-white/15 flex items-center justify-center text-white font-display text-xl">2</span>
+                <p class="mt-1 font-semibold text-white">Youth-Powered</p>
+                <p class="text-sm text-white/85">A volunteering movement driven by India's younger generation.</p>
             </div>
-            <div class="card p-8 flex flex-col items-start gap-3">
-                <span class="h-11 w-11 rounded-2xl bg-brand-blue-50 flex items-center justify-center text-brand-blue-700 font-display text-xl">03</span>
-                <p class="font-semibold text-brand-blue-900">Youth-Powered</p>
-                <p class="text-sm text-brand-neutral-600">A volunteering movement driven by India's younger generation.</p>
-            </div>
-            <div class="card p-8 flex flex-col items-start gap-3 sm:mt-8">
-                <span class="h-11 w-11 rounded-2xl bg-brand-orange-50 flex items-center justify-center text-brand-orange-600 font-display text-xl">04</span>
-                <p class="font-semibold text-brand-blue-900">100% Transparent</p>
-                <p class="text-sm text-brand-neutral-600">12A &amp; 80G registered, with public registration documents.</p>
+            <div class="rounded-md bg-brand-orange-500 p-7 min-h-[240px] flex flex-col items-start gap-3 shadow-soft hover:shadow-soft-lg transition-shadow">
+                <span class="h-11 w-11 rounded-md bg-white/15 flex items-center justify-center text-white font-display text-xl">3</span>
+                <p class="mt-1 font-semibold text-white">100% Transparent</p>
+                <p class="text-sm text-white/85">12A &amp; 80G registered, with public registration documents.</p>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section bg-brand-neutral-50">
+<section class="section pb-8 sm:pb-10 lg:pb-12 bg-brand-neutral-50">
     <div class="container-custom">
         <div class="max-w-2xl mx-auto text-center reveal">
             <p class="eyebrow">What We Do</p>
             <h2 class="section-title"><?= e($blocks['focus_areas_heading'] ?? 'Our Core Focus Areas') ?></h2>
         </div>
+        <?php
+            $focusColors = [
+                'orange' => 'bg-brand-orange-500',
+                'green'  => 'bg-brand-green-500',
+                'blue'   => 'bg-brand-blue-700',
+            ];
+        ?>
         <div class="mt-14 grid md:grid-cols-3 gap-8">
             <?php foreach ($focusAreas as $i => $area): ?>
                 <?php $colors = ['orange', 'green', 'blue']; $c = $colors[$i % 3]; ?>
-                <a href="<?= base_url('/focus-areas/' . $area['slug']) ?>" class="card p-8 group reveal" style="transition-delay: <?= $i * 100 ?>ms">
-                    <span class="inline-flex h-14 w-14 rounded-2xl bg-brand-<?= $c ?>-50 items-center justify-center text-brand-<?= $c ?>-600 mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                        </svg>
-                    </span>
-                    <h3 class="font-display text-xl font-semibold text-brand-blue-900 group-hover:text-brand-orange-600 transition-colors"><?= e($area['title']) ?></h3>
-                    <p class="mt-3 text-sm text-brand-neutral-600 leading-relaxed"><?= e($area['goal_text']) ?></p>
-                    <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-orange-600">
-                        Learn more
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                    </span>
+                <a href="<?= base_url('/focus-areas/' . $area['slug']) ?>" class="group reveal block rounded-md overflow-hidden shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all" style="transition-delay: <?= $i * 100 ?>ms">
+                    <?php if (!empty($area['icon_path'])): ?>
+                        <img src="<?= upload_url($area['icon_path']) ?>" alt="<?= e($area['title']) ?>" class="h-48 w-full object-cover">
+                    <?php else: ?>
+                        <div class="h-48 w-full <?= $focusColors[$c] ?>"></div>
+                    <?php endif; ?>
+                    <div class="<?= $focusColors[$c] ?> p-8">
+                        <h3 class="font-display text-xl font-semibold text-white"><?= e($area['title']) ?></h3>
+                        <p class="mt-3 text-sm text-white/85 leading-relaxed"><?= e($area['goal_text']) ?></p>
+                        <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
+                            Learn more
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                        </span>
+                    </div>
                 </a>
             <?php endforeach; ?>
         </div>
     </div>
 </section>
-
-<?php if (!empty($testimonials)): ?>
-<section class="section">
-    <div class="container-custom">
-        <div class="max-w-2xl mx-auto text-center reveal">
-            <p class="eyebrow">Voices</p>
-            <h2 class="section-title">Stories From Our Community</h2>
-        </div>
-        <div class="mt-14 grid md:grid-cols-3 gap-8">
-            <?php foreach ($testimonials as $t): ?>
-                <div class="card p-8 reveal">
-                    <svg class="h-8 w-8 text-brand-orange-300 mb-4" fill="currentColor" viewBox="0 0 32 32"><path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H8c0-1.1.9-2 2-2V8zm14 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-1.1.9-2 2-2V8z"/></svg>
-                    <p class="text-brand-neutral-700 leading-relaxed">&ldquo;<?= e($t['quote']) ?>&rdquo;</p>
-                    <p class="mt-5 font-semibold text-brand-blue-900"><?= e($t['name']) ?></p>
-                    <?php if (!empty($t['role_or_location'])): ?>
-                        <p class="text-sm text-brand-neutral-500"><?= e($t['role_or_location']) ?></p>
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
-<?php endif; ?>
 
 <?php if (!empty($posts)): ?>
 <section class="section bg-brand-neutral-50">
@@ -159,6 +147,80 @@
         </div>
     </div>
 </section>
+<?php endif; ?>
+
+<?php if (!empty($testimonials)): ?>
+<?php
+    $testimonialCount = count($testimonials);
+    // Duplicating the list is what makes the CSS marquee loop seamlessly
+    // (translateX(-50%) needs a doubled track) — but with too few cards
+    // that just reads as an obvious repeat, so only loop/animate once
+    // there are enough to fill the view before the seam is visible.
+    $testimonialShouldLoop = $testimonialCount >= 4;
+    $testimonialLoop = $testimonialShouldLoop ? array_merge($testimonials, $testimonials) : $testimonials;
+    $marqueeDuration = max($testimonialCount * 10, 24);
+    $testimonialColors = [
+        ['bg' => 'bg-brand-orange-500', 'fill' => 'text-brand-orange-600', 'soft' => 'bg-brand-orange-50'],
+        ['bg' => 'bg-brand-green-500', 'fill' => 'text-brand-green-600', 'soft' => 'bg-brand-green-50'],
+        ['bg' => 'bg-brand-blue-600', 'fill' => 'text-brand-blue-600', 'soft' => 'bg-brand-blue-50'],
+    ];
+?>
+<section class="section pt-8 sm:pt-10 lg:pt-12 overflow-hidden bg-brand-neutral-50">
+    <div class="container-custom">
+        <div class="max-w-2xl mx-auto text-center reveal">
+            <p class="eyebrow">Voices</p>
+            <h2 class="section-title">Stories From Our Community</h2>
+        </div>
+    </div>
+    <div class="mt-14 reveal">
+        <div class="flex <?= $testimonialShouldLoop ? 'w-max' : 'flex-wrap justify-center' ?> gap-7 px-6" data-testimonial-track<?= $testimonialShouldLoop ? ' style="animation: marquee ' . (int) $marqueeDuration . 's linear infinite;"' : '' ?>>
+            <?php foreach ($testimonialLoop as $idx => $t): ?>
+                <?php $c = $testimonialColors[$idx % $testimonialCount % 3]; ?>
+                <button type="button"
+                    class="group w-[300px] sm:w-[360px] flex-shrink-0 rounded-3xl bg-white shadow-soft hover:shadow-soft-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden text-left"
+                    data-testimonial-open
+                    data-quote="<?= e($t['quote']) ?>"
+                    data-name="<?= e($t['name']) ?>"
+                    data-role="<?= e($t['role_or_location'] ?? '') ?>"
+                    data-photo="<?= !empty($t['photo_path']) ? e(upload_url($t['photo_path'])) : '' ?>"
+                    <?= $idx >= $testimonialCount ? ' aria-hidden="true" tabindex="-1"' : '' ?>>
+                    <div class="p-7 pb-5">
+                        <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl <?= $c['soft'] ?> mb-5">
+                            <svg class="h-6 w-6 <?= $c['fill'] ?>" fill="currentColor" viewBox="0 0 32 32"><path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H8c0-1.1.9-2 2-2V8zm14 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-1.1.9-2 2-2V8z"/></svg>
+                        </span>
+                        <p class="text-brand-neutral-600 leading-relaxed line-clamp-5 min-h-[130px]">&ldquo;<?= e($t['quote']) ?>&rdquo;</p>
+                    </div>
+                    <div class="<?= $c['bg'] ?> px-7 py-5 flex items-center gap-4">
+                        <?php if (!empty($t['photo_path'])): ?>
+                            <img src="<?= upload_url($t['photo_path']) ?>" alt="<?= e($t['name']) ?>" data-lightbox-src="<?= upload_url($t['photo_path']) ?>" class="h-14 w-14 rounded-full object-cover border-2 border-white/80 flex-shrink-0 cursor-zoom-in hover:scale-105 transition-transform">
+                        <?php else: ?>
+                            <span class="h-14 w-14 rounded-full bg-white/20 border-2 border-white/80 flex-shrink-0"></span>
+                        <?php endif; ?>
+                        <div class="min-w-0">
+                            <p class="font-semibold text-white truncate"><?= e($t['name']) ?></p>
+                            <?php if (!empty($t['role_or_location'])): ?>
+                                <p class="text-sm text-white/80 truncate"><?= e($t['role_or_location']) ?></p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </button>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<div id="testimonial-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 p-4">
+    <div class="relative w-full max-w-lg max-h-[85vh] overflow-y-auto rounded-3xl bg-white p-8 sm:p-10 shadow-soft-lg">
+        <button type="button" id="testimonial-modal-close" class="absolute right-5 top-5 text-brand-neutral-400 hover:text-brand-neutral-700" aria-label="Close">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+        <img id="testimonial-modal-photo" src="" alt="" class="mx-auto h-20 w-20 rounded-full object-cover border-4 border-white shadow-soft-lg hidden cursor-zoom-in hover:scale-105 transition-transform">
+        <svg class="h-9 w-9 text-brand-orange-500 mx-auto mt-4 mb-5" fill="currentColor" viewBox="0 0 32 32"><path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H8c0-1.1.9-2 2-2V8zm14 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-1.1.9-2 2-2V8z"/></svg>
+        <p id="testimonial-modal-quote" class="text-brand-neutral-700 leading-relaxed text-center text-lg"></p>
+        <p id="testimonial-modal-name" class="mt-6 text-center font-semibold text-brand-blue-900"></p>
+        <p id="testimonial-modal-role" class="text-center text-sm text-brand-neutral-500"></p>
+    </div>
+</div>
 <?php endif; ?>
 
 <section class="section">
