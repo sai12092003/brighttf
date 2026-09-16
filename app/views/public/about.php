@@ -1,7 +1,6 @@
 <?php
 /** @var array $blocks */
 /** @var array $team */
-/** @var array $focusAreas */
 $founder = null;
 $cofounder = null;
 foreach ($team as $member) {
@@ -14,43 +13,6 @@ foreach ($team as $member) {
         <p class="eyebrow !text-brand-orange-300 reveal">About Us</p>
         <h1 class="mt-3 font-display text-4xl sm:text-5xl font-semibold reveal"><?= e($blocks['about_heading'] ?? 'About Bright Today Foundation') ?></h1>
         <p class="mt-6 max-w-2xl mx-auto text-brand-blue-100 text-lg leading-relaxed reveal"><?= e($blocks['about_body'] ?? '') ?></p>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container-custom">
-        <div class="max-w-2xl mx-auto text-center reveal">
-            <p class="eyebrow">What We Do</p>
-            <h2 class="section-title"><?= e($blocks['vision_heading'] ?? 'Our Vision') ?></h2>
-            <p class="section-lede"><?= e($blocks['vision_text'] ?? '') ?></p>
-        </div>
-        <?php
-            $focusColors = [
-                'orange' => 'bg-brand-orange-500',
-                'green'  => 'bg-brand-green-500',
-                'blue'   => 'bg-brand-blue-700',
-            ];
-        ?>
-        <div class="mt-14 grid md:grid-cols-3 gap-8">
-            <?php foreach ($focusAreas as $i => $area): ?>
-                <?php $colors = ['orange', 'green', 'blue']; $c = $colors[$i % 3]; ?>
-                <a href="<?= base_url('/focus-areas/' . $area['slug']) ?>" class="group reveal block rounded-md overflow-hidden shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all" style="transition-delay: <?= $i * 100 ?>ms">
-                    <?php if (!empty($area['icon_path'])): ?>
-                        <img src="<?= upload_url($area['icon_path']) ?>" alt="<?= e($area['title']) ?>" class="h-48 w-full object-cover">
-                    <?php else: ?>
-                        <div class="h-48 w-full <?= $focusColors[$c] ?>"></div>
-                    <?php endif; ?>
-                    <div class="<?= $focusColors[$c] ?> p-8">
-                        <h3 class="font-display text-xl font-semibold text-white"><?= e($area['title']) ?></h3>
-                        <p class="mt-3 text-sm text-white/85 leading-relaxed"><?= e($area['goal_text']) ?></p>
-                        <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
-                            Learn more
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                        </span>
-                    </div>
-                </a>
-            <?php endforeach; ?>
-        </div>
     </div>
 </section>
 

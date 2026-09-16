@@ -35,7 +35,6 @@ $router->get('/about', function () {
     View::renderPublic('about', [
         'blocks' => ContentBlock::forPage('about'),
         'team' => TeamMember::allActive(),
-        'focusAreas' => FocusArea::allActive(),
         'title' => 'About Us',
     ], 'about');
 });
