@@ -47,11 +47,11 @@
                 function step(timestamp) {
                     if (!start) start = timestamp;
                     var progress = Math.min((timestamp - start) / duration, 1);
-                    el.textContent = Math.floor(progress * target).toLocaleString();
+                    el.textContent = Math.floor(progress * target);
                     if (progress < 1) {
                         requestAnimationFrame(step);
                     } else {
-                        el.textContent = target.toLocaleString();
+                        el.textContent = target;
                     }
                 }
                 requestAnimationFrame(step);
