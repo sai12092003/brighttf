@@ -41,6 +41,7 @@ $router->get('/about', function () {
 
 $router->get('/focus-areas', function () {
     View::renderPublic('focus-areas', [
+        'blocks' => ContentBlock::forPage('about'),
         'focusAreas' => FocusArea::allActive(),
         'title' => 'Our Focus Areas',
     ], 'focus_areas');

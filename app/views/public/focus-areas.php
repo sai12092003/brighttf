@@ -1,4 +1,5 @@
 <?php
+/** @var array $blocks */
 /** @var array $focusAreas */
 ?>
 <section class="bg-brand-gradient text-white">
@@ -6,6 +7,14 @@
         <p class="eyebrow !text-brand-orange-300">What We Do</p>
         <h1 class="mt-3 font-display text-4xl sm:text-5xl font-semibold">Our Focus Areas</h1>
         <p class="mt-5 max-w-2xl mx-auto text-brand-blue-100 text-lg">Three pillars guide everything we do: education, environment, and welfare.</p>
+    </div>
+</section>
+
+<section class="section pb-0">
+    <div class="container-custom max-w-2xl text-center reveal">
+        <p class="eyebrow">Our Vision</p>
+        <h2 class="section-title"><?= e($blocks['vision_heading'] ?? 'Our Vision') ?></h2>
+        <p class="section-lede"><?= e($blocks['vision_text'] ?? '') ?></p>
     </div>
 </section>
 
