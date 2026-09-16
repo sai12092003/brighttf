@@ -24,8 +24,11 @@ Options -Indexes -MultiViews
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Force HTTPS (SSL is live on this domain).
+    # Force HTTPS (SSL is live on this domain). Behind a reverse proxy (e.g. Dokploy/Traefik)
+    # that terminates TLS, %{HTTPS} is always "off" from Apache's point of view, so also trust
+    # X-Forwarded-Proto to avoid a redirect loop.
     RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     # Let real files and directories (assets, uploads, admin/*.php) resolve normally.
