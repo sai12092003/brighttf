@@ -20,7 +20,7 @@ foreach ($team as $member) {
 <section class="section">
     <div class="container-custom">
         <div class="max-w-2xl mx-auto text-center reveal">
-            <p class="eyebrow">Our Vision</p>
+            <p class="eyebrow">What We Do</p>
             <h2 class="section-title"><?= e($blocks['vision_heading'] ?? 'Our Vision') ?></h2>
             <p class="section-lede"><?= e($blocks['vision_text'] ?? '') ?></p>
         </div>
