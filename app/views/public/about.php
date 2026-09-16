@@ -1,6 +1,7 @@
 <?php
 /** @var array $blocks */
 /** @var array $team */
+/** @var array $focusAreas */
 $founder = null;
 $cofounder = null;
 foreach ($team as $member) {
@@ -17,46 +18,38 @@ foreach ($team as $member) {
 </section>
 
 <section class="section">
-    <div class="container-custom grid lg:grid-cols-2 gap-14 items-center">
-        <div class="reveal">
+    <div class="container-custom">
+        <div class="max-w-2xl mx-auto text-center reveal">
             <p class="eyebrow">Our Vision</p>
             <h2 class="section-title"><?= e($blocks['vision_heading'] ?? 'Our Vision') ?></h2>
             <p class="section-lede"><?= e($blocks['vision_text'] ?? '') ?></p>
         </div>
-        <div class="space-y-4 reveal">
-            <div class="card p-5 sm:p-6 flex items-start gap-4 transition-transform duration-300 hover:-translate-y-0.5">
-                <span class="h-12 w-12 shrink-0 rounded-xl bg-brand-orange-50 text-brand-orange-600 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                </span>
-                <div>
-                    <p class="font-display text-lg font-semibold text-brand-blue-900">Education</p>
-                    <p class="mt-1 text-sm text-brand-neutral-600 leading-relaxed">Quality learning within reach of every child, without barriers.</p>
-                </div>
-            </div>
-            <div class="card p-5 sm:p-6 flex items-start gap-4 transition-transform duration-300 hover:-translate-y-0.5">
-                <span class="h-12 w-12 shrink-0 rounded-xl bg-brand-green-50 text-brand-green-600 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-                    </svg>
-                </span>
-                <div>
-                    <p class="font-display text-lg font-semibold text-brand-blue-900">Environment</p>
-                    <p class="mt-1 text-sm text-brand-neutral-600 leading-relaxed">Protecting the natural world our communities depend on.</p>
-                </div>
-            </div>
-            <div class="card p-5 sm:p-6 flex items-start gap-4 transition-transform duration-300 hover:-translate-y-0.5">
-                <span class="h-12 w-12 shrink-0 rounded-xl bg-brand-blue-50 text-brand-blue-700 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                    </svg>
-                </span>
-                <div>
-                    <p class="font-display text-lg font-semibold text-brand-blue-900">Women &amp; Child Welfare</p>
-                    <p class="mt-1 text-sm text-brand-neutral-600 leading-relaxed">Dignity, safety, and equal opportunity for every woman and child.</p>
-                </div>
-            </div>
+        <?php
+            $focusColors = [
+                'orange' => 'bg-brand-orange-500',
+                'green'  => 'bg-brand-green-500',
+                'blue'   => 'bg-brand-blue-700',
+            ];
+        ?>
+        <div class="mt-14 grid md:grid-cols-3 gap-8">
+            <?php foreach ($focusAreas as $i => $area): ?>
+                <?php $colors = ['orange', 'green', 'blue']; $c = $colors[$i % 3]; ?>
+                <a href="<?= base_url('/focus-areas/' . $area['slug']) ?>" class="group reveal block rounded-md overflow-hidden shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all" style="transition-delay: <?= $i * 100 ?>ms">
+                    <?php if (!empty($area['icon_path'])): ?>
+                        <img src="<?= upload_url($area['icon_path']) ?>" alt="<?= e($area['title']) ?>" class="h-48 w-full object-cover">
+                    <?php else: ?>
+                        <div class="h-48 w-full <?= $focusColors[$c] ?>"></div>
+                    <?php endif; ?>
+                    <div class="<?= $focusColors[$c] ?> p-8">
+                        <h3 class="font-display text-xl font-semibold text-white"><?= e($area['title']) ?></h3>
+                        <p class="mt-3 text-sm text-white/85 leading-relaxed"><?= e($area['goal_text']) ?></p>
+                        <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
+                            Learn more
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                        </span>
+                    </div>
+                </a>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
