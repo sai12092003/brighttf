@@ -8,6 +8,7 @@
 !/public_html/uploads/team
 !/public_html/uploads/legal
 !/public_html/uploads/settings
+!/public_html/uploads/focus-areas
 !/public_html/uploads/*/.gitkeep
 .DS_Store
 Thumbs.db
