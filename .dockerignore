@@ -1,0 +1,7 @@
+.git
+.env
+node_modules
+tailwind-src/node_modules
+storage/logs/*.log
+.claude
+*.md
