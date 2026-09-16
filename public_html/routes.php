@@ -41,7 +41,6 @@ $router->get('/about', function () {
 
 $router->get('/focus-areas', function () {
     View::renderPublic('focus-areas', [
-        'blocks' => ContentBlock::forPage('about'),
         'focusAreas' => FocusArea::allActive(),
         'title' => 'Our Focus Areas',
     ], 'focus_areas');
@@ -247,7 +246,7 @@ $router->post('/contact', function () {
     $errors = [];
     if ($name === '') $errors['name'] = 'Name is required.';
     if (!Sanitizer::isValidEmail($email)) $errors['email'] = 'A valid email is required.';
-    if ($phone !== '' && !Sanitizer::isValidPhone($phone)) $errors['phone'] = 'Enter a valid 10-digit mobile number.';
+    if ($phone !== '' && !Sanitizer::isDigitsOnly10To12($phone)) $errors['phone'] = 'Enter a valid phone number (10 to 12 digits, numbers only).';
     if ($message === '') $errors['message'] = 'Please enter a message.';
 
     if ($errors) {

@@ -4,25 +4,40 @@ use App\Core\Csrf;
 
 $success = flash_success();
 $error = flash_error();
+$activeTab = old('submission_type', 'volunteer') === 'partner' ? 'partner' : 'volunteer';
 ?>
 <section class="bg-brand-gradient text-white">
-    <div class="container-custom py-20 text-center">
+    <div class="container-custom py-8 sm:py-10 min-h-[170px] sm:min-h-[200px] flex flex-col justify-center text-center">
         <p class="eyebrow !text-brand-orange-300">Join Us</p>
         <h1 class="mt-3 font-display text-4xl sm:text-5xl font-semibold"><?= e($blocks['heading'] ?? 'Get Involved') ?></h1>
         <p class="mt-5 max-w-2xl mx-auto text-brand-blue-100 text-lg"><?= e($blocks['intro_text'] ?? '') ?></p>
     </div>
 </section>
 
-<section class="section">
+<section class="section pt-8 sm:pt-10">
     <div class="container-custom">
         <?php if ($success): ?>
-            <div class="max-w-3xl mx-auto mb-10 rounded-2xl bg-brand-green-50 border border-brand-green-200 text-brand-green-800 px-6 py-4 text-center"><?= e($success) ?></div>
+            <div class="max-w-2xl mx-auto mb-10 rounded-2xl bg-brand-green-50 border border-brand-green-200 text-brand-green-800 px-6 py-4 text-center"><?= e($success) ?></div>
         <?php elseif ($error): ?>
-            <div class="max-w-3xl mx-auto mb-10 rounded-2xl bg-red-50 border border-red-200 text-red-700 px-6 py-4 text-center"><?= e($error) ?></div>
+            <div class="max-w-2xl mx-auto mb-10 rounded-2xl bg-red-50 border border-red-200 text-red-700 px-6 py-4 text-center"><?= e($error) ?></div>
         <?php endif; ?>
 
-        <div class="grid lg:grid-cols-2 gap-10">
-            <div class="card p-8 sm:p-10 reveal">
+        <div class="max-w-2xl mx-auto">
+            <div class="flex justify-center reveal">
+                <div class="inline-flex rounded-full bg-brand-neutral-100 p-1.5" data-tab-switch>
+                    <button type="button" data-tab-btn="volunteer" aria-pressed="<?= $activeTab === 'volunteer' ? 'true' : 'false' ?>"
+                        class="tab-switch-btn rounded-full px-5 sm:px-6 py-2.5 text-sm font-semibold transition-all duration-300 <?= $activeTab === 'volunteer' ? 'bg-white text-brand-blue-900 shadow-soft' : 'text-brand-neutral-600 hover:text-brand-blue-900' ?>">
+                        Volunteer
+                    </button>
+                    <button type="button" data-tab-btn="partner" aria-pressed="<?= $activeTab === 'partner' ? 'true' : 'false' ?>"
+                        class="tab-switch-btn rounded-full px-5 sm:px-6 py-2.5 text-sm font-semibold transition-all duration-300 <?= $activeTab === 'partner' ? 'bg-white text-brand-blue-900 shadow-soft' : 'text-brand-neutral-600 hover:text-brand-blue-900' ?>">
+                        Partner
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-8 reveal">
+            <div data-tab-panel="volunteer" class="card p-8 sm:p-10 transition-all duration-300 ease-out<?= $activeTab === 'volunteer' ? '' : ' hidden opacity-0 -translate-y-2' ?>">
                 <h2 class="font-display text-2xl font-semibold text-brand-blue-900"><?= e($blocks['volunteer_heading'] ?? 'Volunteer With Us') ?></h2>
                 <p class="mt-2 text-brand-neutral-600"><?= e($blocks['volunteer_intro'] ?? '') ?></p>
                 <form method="POST" action="<?= base_url('/get-involved') ?>" class="mt-6 space-y-4">
@@ -64,7 +79,7 @@ $error = flash_error();
                 </form>
             </div>
 
-            <div class="card p-8 sm:p-10 reveal">
+            <div data-tab-panel="partner" class="card p-8 sm:p-10 transition-all duration-300 ease-out<?= $activeTab === 'partner' ? '' : ' hidden opacity-0 -translate-y-2' ?>">
                 <h2 class="font-display text-2xl font-semibold text-brand-blue-900"><?= e($blocks['partner_heading'] ?? 'Partner With Us') ?></h2>
                 <p class="mt-2 text-brand-neutral-600"><?= e($blocks['partner_intro'] ?? '') ?></p>
                 <form method="POST" action="<?= base_url('/get-involved') ?>" class="mt-6 space-y-4">
@@ -95,8 +110,9 @@ $error = flash_error();
                         <label class="form-label">Message</label>
                         <textarea name="message" rows="3" class="form-input" placeholder="Tell us about your organization and how you'd like to partner."></textarea>
                     </div>
-                    <button type="submit" class="btn-secondary w-full">Submit Partnership Inquiry</button>
+                    <button type="submit" class="btn-primary w-full">Submit Partnership Inquiry</button>
                 </form>
+            </div>
             </div>
         </div>
     </div>

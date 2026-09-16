@@ -158,7 +158,6 @@
     // there are enough to fill the view before the seam is visible.
     $testimonialShouldLoop = $testimonialCount >= 4;
     $testimonialLoop = $testimonialShouldLoop ? array_merge($testimonials, $testimonials) : $testimonials;
-    $marqueeDuration = max($testimonialCount * 10, 24);
     $testimonialColors = [
         ['bg' => 'bg-brand-orange-500', 'fill' => 'text-brand-orange-600', 'soft' => 'bg-brand-orange-50'],
         ['bg' => 'bg-brand-green-500', 'fill' => 'text-brand-green-600', 'soft' => 'bg-brand-green-50'],
@@ -172,8 +171,8 @@
             <h2 class="section-title">Stories From Our Community</h2>
         </div>
     </div>
-    <div class="mt-14 reveal">
-        <div class="flex <?= $testimonialShouldLoop ? 'w-max' : 'flex-wrap justify-center' ?> gap-7 px-6" data-testimonial-track<?= $testimonialShouldLoop ? ' style="animation: marquee ' . (int) $marqueeDuration . 's linear infinite;"' : '' ?>>
+    <div class="mt-14 reveal relative">
+        <div class="flex <?= $testimonialShouldLoop ? 'w-max' : 'flex-wrap justify-center' ?> gap-7 px-6" data-testimonial-track<?= $testimonialShouldLoop ? ' data-loop="1"' : '' ?>>
             <?php foreach ($testimonialLoop as $idx => $t): ?>
                 <?php $c = $testimonialColors[$idx % $testimonialCount % 3]; ?>
                 <button type="button"

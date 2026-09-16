@@ -2,7 +2,7 @@
 /** @var array $posts */
 ?>
 <section class="bg-brand-gradient text-white">
-    <div class="container-custom py-20 text-center">
+    <div class="container-custom py-8 sm:py-10 min-h-[170px] sm:min-h-[200px] flex flex-col justify-center text-center">
         <p class="eyebrow !text-brand-orange-300">Stories &amp; Updates</p>
         <h1 class="mt-3 font-display text-4xl sm:text-5xl font-semibold">Blog &amp; News</h1>
     </div>

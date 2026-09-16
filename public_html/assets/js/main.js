@@ -1,6 +1,56 @@
 (function () {
     'use strict';
 
+    // Phone inputs: strip anything that isn't a digit as the user types,
+    // since type="tel"/inputmode="numeric" are just keyboard hints and
+    // don't actually block letters/symbols on their own.
+    document.querySelectorAll('input[name="phone"]').forEach(function (el) {
+        el.addEventListener('input', function () {
+            el.value = el.value.replace(/\D/g, '').slice(0, el.maxLength > 0 ? el.maxLength : 12);
+        });
+    });
+
+    // Get Involved: animated Volunteer/Partner switch
+    var tabSwitch = document.querySelector('[data-tab-switch]');
+    if (tabSwitch) {
+        var tabBtns = tabSwitch.querySelectorAll('[data-tab-btn]');
+        var tabPanels = document.querySelectorAll('[data-tab-panel]');
+
+        var activateTab = function (name) {
+            tabBtns.forEach(function (btn) {
+                var isActive = btn.getAttribute('data-tab-btn') === name;
+                btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+                btn.classList.toggle('bg-white', isActive);
+                btn.classList.toggle('text-brand-blue-900', isActive);
+                btn.classList.toggle('shadow-soft', isActive);
+                btn.classList.toggle('text-brand-neutral-600', !isActive);
+            });
+
+            tabPanels.forEach(function (panel) {
+                var isTarget = panel.getAttribute('data-tab-panel') === name;
+                if (isTarget) {
+                    panel.classList.remove('hidden');
+                    // Force a reflow so the transition from the starting
+                    // opacity/translate state actually animates in.
+                    void panel.offsetWidth;
+                    panel.classList.remove('opacity-0', '-translate-y-2');
+                } else if (!panel.classList.contains('hidden')) {
+                    panel.classList.add('opacity-0', '-translate-y-2');
+                    setTimeout(function () {
+                        panel.classList.add('hidden');
+                    }, 300);
+                }
+            });
+        };
+
+        tabBtns.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                if (btn.getAttribute('aria-pressed') === 'true') return;
+                activateTab(btn.getAttribute('data-tab-btn'));
+            });
+        });
+    }
+
     // Mobile nav toggle
     var menuBtn = document.getElementById('mobile-menu-btn');
     var menu = document.getElementById('mobile-menu');
@@ -130,15 +180,46 @@
         });
     });
 
-    // Testimonial marquee: pause the auto-scroll while hovered or a card is open
-    var testimonialTrack = document.querySelector('[data-testimonial-track]');
+    // Testimonial marquee: JS-driven (instead of a pure CSS animation) so
+    // hovering + scrolling with a trackpad/mouse wheel can nudge the
+    // position manually, with ambient auto-scroll resuming from wherever
+    // it was left afterward, rather than fighting the user's scroll.
+    var testimonialTrack = document.querySelector('[data-testimonial-track][data-loop="1"]');
+    var testimonialHovered = false;
+    var testimonialModalOpen = false;
+    var testimonialManualPauseUntil = 0;
     if (testimonialTrack) {
-        testimonialTrack.addEventListener('mouseenter', function () {
-            testimonialTrack.style.animationPlayState = 'paused';
-        });
-        testimonialTrack.addEventListener('mouseleave', function () {
-            testimonialTrack.style.animationPlayState = 'running';
-        });
+        var tPosition = 0;
+        var tLastTime = null;
+        var tSpeed = 40; // px/second ambient auto-scroll speed
+        var tHalfWidth = testimonialTrack.scrollWidth / 2;
+
+        var tStep = function (timestamp) {
+            if (tLastTime === null) tLastTime = timestamp;
+            var dt = (timestamp - tLastTime) / 1000;
+            tLastTime = timestamp;
+
+            if (!testimonialHovered && !testimonialModalOpen && timestamp >= testimonialManualPauseUntil) {
+                tPosition -= tSpeed * dt;
+                if (tPosition <= -tHalfWidth) tPosition += tHalfWidth;
+            }
+            testimonialTrack.style.transform = 'translateX(' + tPosition + 'px)';
+            requestAnimationFrame(tStep);
+        };
+        requestAnimationFrame(tStep);
+
+        testimonialTrack.addEventListener('mouseenter', function () { testimonialHovered = true; });
+        testimonialTrack.addEventListener('mouseleave', function () { testimonialHovered = false; });
+
+        testimonialTrack.addEventListener('wheel', function (event) {
+            var delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+            if (delta === 0) return;
+            event.preventDefault();
+            tPosition -= delta;
+            if (tPosition <= -tHalfWidth) tPosition += tHalfWidth;
+            if (tPosition > 0) tPosition -= tHalfWidth;
+            testimonialManualPauseUntil = performance.now() + 2500;
+        }, { passive: false });
     }
 
     // Testimonial "read more" modal
@@ -170,17 +251,13 @@
 
             testimonialModal.classList.remove('hidden');
             testimonialModal.classList.add('flex');
-            if (testimonialTrack) {
-                testimonialTrack.style.animationPlayState = 'paused';
-            }
+            testimonialModalOpen = true;
         };
 
         var closeTestimonialModal = function () {
             testimonialModal.classList.add('hidden');
             testimonialModal.classList.remove('flex');
-            if (testimonialTrack) {
-                testimonialTrack.style.animationPlayState = 'running';
-            }
+            testimonialModalOpen = false;
         };
 
         document.querySelectorAll('[data-testimonial-open]').forEach(function (card) {

@@ -2,7 +2,7 @@
 /** @var array $faqs */
 ?>
 <section class="bg-brand-gradient text-white">
-    <div class="container-custom py-20 text-center">
+    <div class="container-custom py-16 sm:py-20 min-h-[280px] sm:min-h-[320px] flex flex-col justify-center text-center">
         <p class="eyebrow !text-brand-orange-300">Questions</p>
         <h1 class="mt-3 font-display text-4xl sm:text-5xl font-semibold">Frequently Asked Questions</h1>
     </div>

@@ -4,7 +4,7 @@ use App\Models\SiteSetting;
 $settings = SiteSetting::all();
 ?>
 <section class="bg-brand-gradient text-white">
-    <div class="container-custom py-20 text-center">
+    <div class="container-custom py-16 sm:py-20 min-h-[280px] sm:min-h-[320px] flex flex-col justify-center text-center">
         <p class="eyebrow !text-brand-orange-300">Accountability</p>
         <h1 class="mt-3 font-display text-4xl sm:text-5xl font-semibold">Transparency &amp; Legal</h1>
         <p class="mt-5 max-w-2xl mx-auto text-brand-blue-100 text-lg">Bright Today Foundation operates as a registered charitable trust in India. Our registration details and certificates are public.</p>

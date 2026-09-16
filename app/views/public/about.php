@@ -9,14 +9,14 @@ foreach ($team as $member) {
 }
 ?>
 <section class="bg-brand-gradient text-white">
-    <div class="container-custom py-20 sm:py-24 text-center">
+    <div class="container-custom py-16 sm:py-20 min-h-[280px] sm:min-h-[320px] flex flex-col justify-center text-center">
         <p class="eyebrow !text-brand-orange-300 reveal">About Us</p>
-        <h1 class="mt-3 font-display text-4xl sm:text-5xl font-semibold reveal"><?= e($blocks['about_heading'] ?? 'About Bright Today Foundation') ?></h1>
+        <h1 class="mt-3 font-display text-3xl sm:text-4xl lg:text-5xl font-semibold reveal"><?= e($blocks['about_heading'] ?? 'About Bright Today Foundation') ?></h1>
         <p class="mt-6 max-w-2xl mx-auto text-brand-blue-100 text-lg leading-relaxed reveal"><?= e($blocks['about_body'] ?? '') ?></p>
     </div>
 </section>
 
-<section class="section bg-brand-neutral-50">
+<section class="section pt-8 sm:pt-10 bg-brand-neutral-50">
     <div class="container-custom max-w-3xl">
         <div class="text-center reveal">
             <p class="eyebrow">Our Journey</p>

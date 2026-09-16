@@ -2,7 +2,7 @@
 /** @var array $area */
 ?>
 <section class="bg-brand-gradient text-white">
-    <div class="container-custom py-20 text-center">
+    <div class="container-custom py-16 sm:py-20 min-h-[280px] sm:min-h-[320px] flex flex-col justify-center text-center">
         <p class="eyebrow !text-brand-orange-300">What We Do</p>
         <h1 class="mt-3 font-display text-4xl sm:text-5xl font-semibold"><?= e($area['title']) ?></h1>
         <p class="mt-5 max-w-2xl mx-auto text-brand-blue-100 text-lg"><?= e($area['goal_text']) ?></p>

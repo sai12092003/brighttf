@@ -34,6 +34,12 @@ final class Sanitizer
         return preg_match('/^[6-9]\d{9}$/', $digits) === 1;
     }
 
+    /** True for 10-12 digits only — no letters, spaces, dashes, or other symbols. */
+    public static function isDigitsOnly10To12(string $value): bool
+    {
+        return preg_match('/^\d{10,12}$/', $value) === 1;
+    }
+
     public static function slug(string $value): string
     {
         $value = strtolower(trim($value));

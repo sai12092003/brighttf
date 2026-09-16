@@ -3,7 +3,7 @@
 /** @var array $images */
 ?>
 <section class="bg-brand-gradient text-white">
-    <div class="container-custom py-20 text-center">
+    <div class="container-custom py-8 sm:py-10 min-h-[170px] sm:min-h-[200px] flex flex-col justify-center text-center">
         <p class="eyebrow !text-brand-orange-300">Moments</p>
         <h1 class="mt-3 font-display text-4xl sm:text-5xl font-semibold">Gallery</h1>
         <p class="mt-5 max-w-2xl mx-auto text-brand-blue-100 text-lg">A glimpse into our programs and the communities we work with.</p>

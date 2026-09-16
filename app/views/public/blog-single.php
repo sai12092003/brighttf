@@ -3,7 +3,7 @@
 ?>
 <article>
     <section class="bg-brand-gradient text-white">
-        <div class="container-custom py-16">
+        <div class="container-custom py-16 sm:py-20 min-h-[280px] sm:min-h-[320px] flex flex-col justify-center">
             <a href="<?= base_url('/blog') ?>" class="text-sm text-brand-blue-200 hover:text-white">&larr; Back to Blog</a>
             <p class="mt-4 eyebrow !text-brand-orange-300"><?= e($post['category_name'] ?? 'Update') ?> &middot; <?= e(date('F j, Y', strtotime((string) $post['published_at']))) ?></p>
             <h1 class="mt-2 font-display text-3xl sm:text-4xl lg:text-5xl font-semibold max-w-3xl"><?= e($post['title']) ?></h1>
