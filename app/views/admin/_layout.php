@@ -28,6 +28,7 @@ $navGroups = [
         'submissions-contact.php' => 'Contact Messages',
         'submissions-volunteer.php' => 'Volunteer / Partner',
         'pledges.php' => 'Donation Pledges',
+        'scholarship-applications.php' => 'Scholarship Requests',
     ],
     'Configuration' => [
         'legal-documents.php' => 'Legal Documents',

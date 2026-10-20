@@ -10,6 +10,7 @@ $navLinks = [
     '/gallery' => 'Gallery',
     '/blog' => 'Blog',
     '/contact' => 'Contact',
+    '/scholarship' => 'Scholarship',
 ];
 $currentPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
 ?>

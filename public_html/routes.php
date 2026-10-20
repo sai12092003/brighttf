@@ -18,6 +18,7 @@ use App\Models\LegalDocument;
 use App\Models\ContactSubmission;
 use App\Models\VolunteerPartnerSubmission;
 use App\Models\DonationPledge;
+use App\Models\ScholarshipApplication;
 
 /** @var App\Core\Router $router */
 
@@ -178,6 +179,135 @@ $router->post('/donate', function () {
     redirect('/donate');
 });
 
+/**
+ * Scholarship programmes. Add future scholarships as new entries keyed by slug.
+ * `status` is 'open' (accepting applications) or 'closed'.
+ */
+$scholarships = [
+    'mgr-bed-special-education-hi' => [
+        'slug' => 'mgr-bed-special-education-hi',
+        'status' => 'open',
+        'title' => 'B.Ed – Special Education (HI)',
+        'subtitle' => 'Dr. MGR Institute of Special Education & Research',
+        'tagline' => 'Scholarships & concessions for meritorious and deserving students',
+        'summary' => 'A B.Ed programme that trains candidates to teach all children, including children with Hearing Impairment and Deafness. Meritorious students are awarded scholarships, deserving students receive concessions, and outstation students can avail free accommodation.',
+        'institute' => 'Dr. MGR Institute of Special Education and Research',
+        'school' => 'Dr. MGR Home and Higher Secondary School for the Speech & Hearing Impaired',
+        'course' => 'B.Ed – (Special Education – Hearing Impairment)',
+        'affiliation' => 'Affiliated to Tamil Nadu Teachers Education University',
+        'approval' => 'Approved by Rehabilitation Council of India',
+        'website' => 'www.mgrspecialeducation.com',
+        'email' => 'mgrhomeschool@gmail.com',
+        'location' => 'MGR Gardens, Chennai - 600 089',
+        'highlights' => [
+            'Meritorious students will be given scholarships.',
+            'Concession will be given to deserving students.',
+            'Outstation students can avail free accommodation.',
+            'As per G.O.(Ms).No.56 dated 24.4.2012, students completing the B.Ed course can work in Special Schools as well as General / Integrated Schools.',
+        ],
+        'contacts' => [
+            ['name' => 'Mrs. Kavitha', 'phone' => '98842 16979'],
+            ['name' => 'Dr. V. Praneetha', 'phone' => '70102 77808'],
+            ['name' => 'Ms. S. Kavya', 'phone' => '82208 43793'],
+            ['name' => 'Dr. MGR – Janaki College, 11 & 13, Durgabai Deshmukh Road, Chennai - 600 028', 'phone' => '044-2493 7382 / 2493 7392'],
+            ['name' => 'Dr. MGR Institute of Special Education & Research, MGR Garden, Chennai - 600 089', 'phone' => '044-2249 0629'],
+        ],
+    ],
+];
+
+$router->get('/scholarship', function () use ($scholarships) {
+    View::renderPublic('scholarship', [
+        'scholarships' => $scholarships,
+        'title' => 'Scholarship Applications',
+    ], 'scholarship');
+});
+
+$router->get('/scholarship/{slug}', function (array $params) use ($scholarships) {
+    $scholarship = $scholarships[$params['slug']] ?? null;
+    if (!$scholarship) {
+        http_response_code(404);
+        View::renderPublic('404', ['title' => 'Not Found']);
+        return;
+    }
+    View::renderPublic('scholarship-single', [
+        'scholarship' => $scholarship,
+        'title' => $scholarship['title'] . ' Scholarship',
+    ]);
+});
+
+$router->post('/scholarship/{slug}', function (array $params) use ($scholarships) {
+    $scholarship = $scholarships[$params['slug']] ?? null;
+    if (!$scholarship) {
+        http_response_code(404);
+        View::renderPublic('404', ['title' => 'Not Found']);
+        return;
+    }
+
+    $redirectTo = '/scholarship/' . $scholarship['slug'];
+
+    if (!Csrf::verify($_POST['csrf_token'] ?? null)) {
+        flash_error('Your session expired. Please try again.');
+        redirect($redirectTo);
+    }
+    // Honeypot: legitimate users never fill this hidden field.
+    if (!empty($_POST['website'])) {
+        redirect($redirectTo);
+    }
+    if ($scholarship['status'] !== 'open') {
+        flash_error('Applications for this scholarship are currently closed.');
+        redirect($redirectTo);
+    }
+
+    $fullName = Sanitizer::str($_POST['full_name'] ?? '');
+    $email = Sanitizer::email($_POST['email'] ?? '');
+    $phone = Sanitizer::str($_POST['phone'] ?? '');
+    $dob = Sanitizer::str($_POST['date_of_birth'] ?? '');
+    $gender = Sanitizer::str($_POST['gender'] ?? '');
+    $differentlyAbled = in_array($_POST['differently_abled'] ?? '', ['Yes', 'No'], true) ? $_POST['differently_abled'] : '';
+    $address = Sanitizer::str($_POST['address'] ?? '');
+    $city = Sanitizer::str($_POST['city'] ?? '');
+    $guardian = Sanitizer::str($_POST['guardian_name'] ?? '');
+    $qualification = Sanitizer::str($_POST['qualification'] ?? '');
+    $income = Sanitizer::str($_POST['annual_income'] ?? '');
+    $message = Sanitizer::str($_POST['message'] ?? '');
+
+    $errors = [];
+    if ($fullName === '') $errors['full_name'] = 'Full name is required.';
+    if (!Sanitizer::isValidEmail($email)) $errors['email'] = 'A valid email is required.';
+    if ($phone === '') {
+        $errors['phone'] = 'Phone number is required.';
+    } elseif (!Sanitizer::isValidPhone($phone)) {
+        $errors['phone'] = 'Enter a valid 10-digit mobile number.';
+    }
+
+    if ($errors) {
+        flash_old($_POST, $errors);
+        redirect($redirectTo);
+    }
+
+    ScholarshipApplication::create([
+        'scholarship_slug' => $scholarship['slug'],
+        'scholarship_name' => $scholarship['title'] . ' — ' . $scholarship['subtitle'],
+        'full_name' => $fullName,
+        'email' => $email,
+        'phone' => $phone,
+        'date_of_birth' => $dob !== '' ? $dob : null,
+        'gender' => $gender !== '' ? $gender : null,
+        'differently_abled' => $differentlyAbled !== '' ? $differentlyAbled : null,
+        'address' => $address !== '' ? $address : null,
+        'city' => $city !== '' ? $city : null,
+        'guardian_name' => $guardian !== '' ? $guardian : null,
+        'qualification' => $qualification !== '' ? $qualification : null,
+        'annual_income' => $income !== '' ? $income : null,
+        'message' => $message !== '' ? $message : null,
+        'ip_address' => $_SERVER['REMOTE_ADDR'] ?? null,
+    ]);
+
+    clear_old();
+    flash_success('Thank you! Your scholarship application has been received. Our team will review it and get in touch with you.');
+    redirect($redirectTo);
+});
+
 $router->get('/gallery', function () {
     View::renderPublic('gallery', [
         'albums' => GalleryAlbum::allActive(),
@@ -294,8 +424,8 @@ $router->get('/sitemap.xml', function () {
     header('Content-Type: application/xml; charset=UTF-8');
     $staticPaths = [
         '/', '/about', '/focus-areas', '/team', '/get-involved', '/donate',
-        '/gallery', '/blog', '/testimonials', '/faq', '/contact', '/transparency',
-        '/privacy-policy', '/terms',
+        '/scholarship', '/gallery', '/blog', '/testimonials', '/faq', '/contact',
+        '/transparency', '/privacy-policy', '/terms',
     ];
     echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
     echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";

@@ -241,6 +241,30 @@ CREATE TABLE IF NOT EXISTS donation_pledges (
 );
 CREATE INDEX IF NOT EXISTS idx_pledges_status ON donation_pledges (status);
 
+CREATE TABLE IF NOT EXISTS scholarship_applications (
+    id SERIAL PRIMARY KEY,
+    scholarship_slug VARCHAR(100) NOT NULL,
+    scholarship_name VARCHAR(200) NOT NULL,
+    full_name VARCHAR(120) NOT NULL,
+    email VARCHAR(190) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    date_of_birth DATE NULL DEFAULT NULL,
+    gender VARCHAR(20) NULL DEFAULT NULL,
+    differently_abled VARCHAR(5) NULL DEFAULT NULL,
+    address TEXT NULL,
+    city VARCHAR(120) NULL DEFAULT NULL,
+    guardian_name VARCHAR(120) NULL DEFAULT NULL,
+    qualification VARCHAR(150) NULL DEFAULT NULL,
+    annual_income VARCHAR(50) NULL DEFAULT NULL,
+    message TEXT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'new' CHECK (status IN ('new','reviewed','shortlisted','approved','rejected')),
+    admin_notes TEXT NULL,
+    ip_address VARCHAR(45) NULL DEFAULT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_scholarship_status ON scholarship_applications (status);
+
 CREATE TABLE IF NOT EXISTS legal_documents (
     id SERIAL PRIMARY KEY,
     title VARCHAR(150) NOT NULL,

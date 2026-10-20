@@ -262,6 +262,30 @@ CREATE TABLE IF NOT EXISTS donation_pledges (
     INDEX idx_pledges_status (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS scholarship_applications (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    scholarship_slug VARCHAR(100) NOT NULL,
+    scholarship_name VARCHAR(200) NOT NULL,
+    full_name VARCHAR(120) NOT NULL,
+    email VARCHAR(190) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    date_of_birth DATE NULL DEFAULT NULL,
+    gender VARCHAR(20) NULL DEFAULT NULL,
+    differently_abled VARCHAR(5) NULL DEFAULT NULL,
+    address TEXT NULL,
+    city VARCHAR(120) NULL DEFAULT NULL,
+    guardian_name VARCHAR(120) NULL DEFAULT NULL,
+    qualification VARCHAR(150) NULL DEFAULT NULL,
+    annual_income VARCHAR(50) NULL DEFAULT NULL,
+    message TEXT NULL,
+    status ENUM('new','reviewed','shortlisted','approved','rejected') NOT NULL DEFAULT 'new',
+    admin_notes TEXT NULL,
+    ip_address VARCHAR(45) NULL DEFAULT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_scholarship_status (status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS legal_documents (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(150) NOT NULL,
